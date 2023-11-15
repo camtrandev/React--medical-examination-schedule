@@ -5,7 +5,7 @@ import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import  { handleLogin } from '../../services/userService';
-
+import { userLoginSuccess } from '../../store/actions';
 
 
 class Login extends Component {
@@ -15,15 +15,12 @@ class Login extends Component {
         super(props);
         // lưu trang thái tại 1 thời điểm bằng biến state
         // giá trị của state là 1 object
-        // this.state = {
-        //     username:'',
-        //     password:'',
-        //     isShowPassword: false
-        // }
+        
         this.state = {
             username: '',
             password: '',
-            isShowPassword: false
+            isShowPassword: false,
+            erressage: ''
         }
 
     }
@@ -46,9 +43,37 @@ class Login extends Component {
     }
 // ấn vào login thì trả ra giá trị vừa nhập
     handleLogin = async () => {
-        await handleLogin(this.state.username, this.state.password);
+
+        // trc mỗi lần ấn login để gửi req thì phải clear các mã lỗi trước bằng state 
+        // sau đó mới trả lỗi khác hoặc đăng nhập thành công
+        this.setState({
+            errMessage:''
+        })
+        try {
+            let data = await handleLogin(this.state.username, this.state.password);
+
+            if (data && data.errCode !== 0) {
+                this.setState({
+                    errMessage:data.message
+                })
+            }
+            if (data && data.errCode === 0) {
+                // gọi userLoginSuccess
+                this.props.userLoginSuccess(data.user)
+                alert('login succeed!!!')
+            }
+        }catch(error) {
+
+            if (error.response) {
+                if (error.response.data) {
+                    this.setState({
+                        errMessage: error.response.data.message
+                    })
+                }
+            }
+        }
     }
-// tạo sự kiện mở mắt nhắm mắt khi nhập paswork
+// tạo sự kiện mở mắt nhắm mắt khi nhập password
     handleShowPassword = () => {
         this.setState({
             isShowPassword : !(this.state.isShowPassword),
@@ -75,10 +100,10 @@ class Login extends Component {
                              /> 
                         </div>
                         <div className='col-12 form-group login-input'>
-                            <label>PassWorkd:</label>
+                            <label>PassWord:</label>
                             <div className='custom-input-password'>
                                 <input 
-                                    type= {this.state.isShowPassword ? "text":"password"} 
+                                    type= { this.state.isShowPassword ? "text":"password" } 
                                     className='form-control'                                    
                                     placeholder='Enter your passWord...' 
                                     value={this.state.password}
@@ -92,6 +117,9 @@ class Login extends Component {
                                 </span>
                             </div>
 
+                        </div>
+                        <div className='col-12' style= {{color: 'red'}}>
+                            {this.state.errMessage}
                         </div>
                         <div className='col-12'>
                             <button className='btn-login' onClick={() => {this.handleLogin()}} >Login</button>
@@ -126,8 +154,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfor) => dispatch(actions.userLoginSuccess(userInfor)),
     };
 };
 
