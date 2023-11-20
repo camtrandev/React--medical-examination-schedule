@@ -10,8 +10,15 @@ const handleLogin = (email, password) => {
     return axios.post('/api/login', {email: email, password: password})
 }
 
-// đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 
+const getAllUsers = (inputId) =>{
+    // đường link api trung vs dduongf link bên backend
+    // sử dung temple string 
+    return axios.get(`/api/get-all-user?id=${inputId}`);
+}
+
+// đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
-    handleLogin
+    handleLogin,
+    getAllUsers
 }
