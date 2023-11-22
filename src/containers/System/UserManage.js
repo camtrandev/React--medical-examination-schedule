@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { 
+  getAllUsers ,
+  createNewUserService
+} from '../../services/userService';
 import ModalUser from './ModalUser';
 
 class UserManage extends Component {
@@ -20,6 +23,10 @@ class UserManage extends Component {
   // hàm Did Mount có nhiệm vụ là lấy dữ liệu từ ngoài vào
 
   async componentDidMount() {
+    await this.getAllUsersFromReact();
+  }
+
+  getAllUsersFromReact = async () => {
     let response = await getAllUsers('All');
     if (response && response.errCode === 0) {
       // hàm setState là bất đồng bộ nên với dữ liệu mà lớn thì thì nó sảy ra vậy hãy dùng callback function ngay sau dấu ngoặc kép
@@ -27,7 +34,6 @@ class UserManage extends Component {
         arrUsers: response.users
       })
     }
-
   }
 
   handleAddNewUser = () => {
@@ -37,11 +43,28 @@ class UserManage extends Component {
   }
 
 
-  // chuy
+  // đóng mở modal
   toggleUserModal = () => {
     this.setState({
       isOpenModal: !this.state.isOpenModal,
     })
+  }
+// chuyền hàm gọi từ Node bên userService
+  createNewUser =async (data) => {
+    try {
+      let reponse = await createNewUserService(data);
+      if (reponse && reponse.errCode !== 0) {
+        alert(reponse.errMessage)
+      }else {
+        await this.getAllUsersFromReact();
+        this.setState({
+          isOpenModal: false
+        })
+      }
+    } catch(e) {
+       console.log(e)
+    }
+   
   }
 
   /** Từ khóa làm việc với Fontend framworklife cycle (1 vòng đời ) dưới đây là chu trình chay
@@ -61,7 +84,7 @@ class UserManage extends Component {
           isOpen={this.state.isOpenModal}
           // tạo toggle đóng mở
           toggleFromParent={this.toggleUserModal}
-          test={"abcd"}
+          createNewUser={this.createNewUser}
         />
         <div className='title'>Manage User With CamTranDev</div>
 
@@ -69,13 +92,15 @@ class UserManage extends Component {
           <button className='btn btn-primary px-3'
             onClick={() => this.handleAddNewUser()}
           >
-            <i className='fas fa-plus'></i>
-            Add new Users
+            <i className='fas fa-plus'> </i>
+              Add new Users
           </button>
         </div>
-
+        
         <div className="users-table mt-3 mx-1">
+          
           <table id="customers">
+          <tbody>
             <tr>
               <th>Email</th>
               <th>FirstName</th>
@@ -97,7 +122,7 @@ class UserManage extends Component {
                       <i className="fas fa-pencil-alt"></i>
                     </button>
                     <button className='btn-delete'>
-                      <i class="fas fa-trash"></i>
+                      <i className="fas fa-trash"></i>
                     </button>
                   </td>
                 </tr>
@@ -105,9 +130,11 @@ class UserManage extends Component {
             })
             }
 
-
+        </tbody>
           </table>
+          
         </div>
+        
       </div >
     );
   }

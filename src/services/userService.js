@@ -18,12 +18,15 @@ const getAllUsers = (inputId) =>{
 }
 
 // reactjs Create new User
-
+const createNewUserService = (data) => {
+    return axios.post('/api/create-new-user',data)
+}
 
 // reactjs Edit User
 
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
-    getAllUsers
+    getAllUsers, 
+    createNewUserService
 }
