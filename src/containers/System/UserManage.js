@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userService';
+import ModalUser from './ModalUser';
 
 class UserManage extends Component {
 
@@ -11,7 +12,8 @@ class UserManage extends Component {
     super(props);
     // thí là đối tượng class UserManage
     this.state = {
-      arrUsers: []
+      arrUsers: [],
+      isOpenModal: false,
     }
   }
 
@@ -28,20 +30,49 @@ class UserManage extends Component {
 
   }
 
+  handleAddNewUser = () => {
+    this.setState({
+      isOpenModal: true,
+    })
+  }
+
+
+  // chuy
+  toggleUserModal = () => {
+    this.setState({
+      isOpenModal: !this.state.isOpenModal,
+    })
+  }
+
   /** Từ khóa làm việc với Fontend framworklife cycle (1 vòng đời ) dưới đây là chu trình chay
    * 1 - run construct -> init state
    * 2- Did mount (set state) -> muốn gán giá trị cho biến state nào đó
    * 3- hàm Render
-   *  
+   *  // chú ý nếu muốn cái hàm render chạy lại thì hãy dùng setState
    */
   render() {
-
-    console.log('check', this.state)
 
     let arrUsers = this.state.arrUsers;
     return (
       <div className="user-container ">
+        {/* cái props của thằng con chính là cái state của thằng cha để hiểu hơn xem vd: #40    37:30s */}
+        {/* cú pháp truy cập đến 1 biên cụ thể trong <ModalUser/> this.props.[tên biến]  chuyền từ cha xuống con*/}
+        <ModalUser
+          isOpen={this.state.isOpenModal}
+          // tạo toggle đóng mở
+          toggleFromParent={this.toggleUserModal}
+          test={"abcd"}
+        />
         <div className='title'>Manage User With CamTranDev</div>
+
+        <div className='mx-1'>
+          <button className='btn btn-primary px-3'
+            onClick={() => this.handleAddNewUser()}
+          >
+            <i className='fas fa-plus'></i>
+            Add new Users
+          </button>
+        </div>
 
         <div className="users-table mt-3 mx-1">
           <table id="customers">
@@ -52,32 +83,31 @@ class UserManage extends Component {
               <th>Address</th>
               <th>Action</th>
             </tr>
-           
-              {arrUsers && arrUsers.map((item, index) => {
-                console.log('camtrandev',item,index)
-                return (
-                  // phải return ra 1 khôi không thì sẽ có lỗi vậy phải bộ trong <> </>
-                  <tr>
-                    <td>{item.email}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.address}</td>
-                    <td>
-                      <button className='btn-edit'>
-                        <i className="fas fa-pencil-alt"></i>
-                        </button>
-                      <button className='btn-delete'>
-                        <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                  </tr>
-                )
-              })
-              }
-          
 
-        </table>
-      </div>
+            {arrUsers && arrUsers.map((item, index) => {
+              return (
+                // phải return ra 1 khôi không thì sẽ có lỗi vậy phải bộ trong <> </>
+                <tr>
+                  <td>{item.email}</td>
+                  <td>{item.firstName}</td>
+                  <td>{item.lastName}</td>
+                  <td>{item.address}</td>
+                  <td>
+                    <button className='btn-edit'>
+                      <i className="fas fa-pencil-alt"></i>
+                    </button>
+                    <button className='btn-delete'>
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              )
+            })
+            }
+
+
+          </table>
+        </div>
       </div >
     );
   }

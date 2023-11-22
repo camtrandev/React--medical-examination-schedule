@@ -10,12 +10,17 @@ const handleLogin = (email, password) => {
     return axios.post('/api/login', {email: email, password: password})
 }
 
-
+// react lấy dữ liệu người dùng hiển thị
 const getAllUsers = (inputId) =>{
     // đường link api trung vs dduongf link bên backend
     // sử dung temple string 
     return axios.get(`/api/get-all-user?id=${inputId}`);
 }
+
+// reactjs Create new User
+
+
+// reactjs Edit User
 
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
