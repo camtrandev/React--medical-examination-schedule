@@ -20,13 +20,30 @@ const getAllUsers = (inputId) =>{
 // reactjs Create new User
 const createNewUserService = (data) => {
     return axios.post('/api/create-new-user',data)
+
 }
 
-// reactjs Edit User
+// reactjs delete User
+const deleteUserService = (userId) => {
+    // return axios.delete('/api/delete-user', {id:userId})
+    return axios.delete('/api/delete-user',{
+        data: {
+            id: userId
+        }
+    });
+}
+
+// Edit User
+// đầu vào data là email pass ...
+const EditUserService = (inputData) => {
+    return axios.put('/api/edit-user',inputData);
+}
 
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
     getAllUsers, 
-    createNewUserService
+    createNewUserService,
+    deleteUserService,
+    EditUserService
 }

@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import './UserManage.scss';
 import { 
   getAllUsers ,
-  createNewUserService
+  createNewUserService,
+  deleteUserService,
+  EditUserService
 } from '../../services/userService';
 import ModalUser from './ModalUser';
+import ModalEditUser from './ModalEditUser';
+import { emitter } from '../../utils/emitter';
 
 class UserManage extends Component {
 
@@ -17,6 +21,8 @@ class UserManage extends Component {
     this.state = {
       arrUsers: [],
       isOpenModal: false,
+      isOpenModalEdituser: false,
+      userEdit:{}
     }
   }
 
@@ -49,6 +55,13 @@ class UserManage extends Component {
       isOpenModal: !this.state.isOpenModal,
     })
   }
+
+  toggleUserEditModal = () => {
+    this.setState({
+      isOpenModalEdituser: !this.state.isOpenModalEdituser,
+    })
+  }
+
 // chuyền hàm gọi từ Node bên userService
   createNewUser =async (data) => {
     try {
@@ -60,6 +73,9 @@ class UserManage extends Component {
         this.setState({
           isOpenModal: false
         })
+        // muốn chuyền thêm data thông qua thằng emitter thi sử dụng như comment
+        // emitter.emit('EVENT_CLEAR_MODAL_DATA', {'id': 'your id'})
+        emitter.emit('EVENT_CLEAR_MODAL_DATA')
       }
     } catch(e) {
        console.log(e)
@@ -67,6 +83,44 @@ class UserManage extends Component {
    
   }
 
+
+  // delete user 
+  handleDeleteUser = async(user) => {
+    try {
+      let res = await deleteUserService(user.id)
+      if (res && res.errCode == 0) {
+        await this.getAllUsersFromReact();
+      }else {
+        alert(res.errMessage)
+      }
+    }catch(e) {
+      console.log(e)
+    }
+  }
+
+  handleEditUser = (user) => {
+    this.setState({
+      isOpenModalEdituser: true,
+      userEdit: user
+    })
+  }
+
+
+  doEditUser = async(user) => {
+    try {
+        let res = await EditUserService(user);
+        if (res && res.errCode === 0 ) {
+          this.setState({
+            isOpenModalEdituser: false
+          })
+          this.getAllUsersFromReact();
+        }else {
+          alert(res.errMessage)
+        }
+    }catch (e) {
+      console.log(e)
+    }
+  }
   /** Từ khóa làm việc với Fontend framworklife cycle (1 vòng đời ) dưới đây là chu trình chay
    * 1 - run construct -> init state
    * 2- Did mount (set state) -> muốn gán giá trị cho biến state nào đó
@@ -86,6 +140,19 @@ class UserManage extends Component {
           toggleFromParent={this.toggleUserModal}
           createNewUser={this.createNewUser}
         />
+        {
+          this.state.isOpenModalEdituser &&
+
+        <ModalEditUser
+          isOpen={this.state.isOpenModalEdituser}
+          // tạo toggle đóng mở
+          toggleFromParent={this.toggleUserEditModal}
+          currentUser = {this.state.userEdit}
+          // gọi đến hàm bên trên để gọi đến API bên nodejs 
+          EditUser={this.doEditUser}
+        
+        />
+        }
         <div className='title'>Manage User With CamTranDev</div>
 
         <div className='mx-1'>
@@ -118,10 +185,10 @@ class UserManage extends Component {
                   <td>{item.lastName}</td>
                   <td>{item.address}</td>
                   <td>
-                    <button className='btn-edit'>
+                    <button className='btn-edit' onClick={() => this.handleEditUser(item)}>
                       <i className="fas fa-pencil-alt"></i>
                     </button>
-                    <button className='btn-delete'>
+                    <button className='btn-delete' onClick={()=> this.handleDeleteUser(item)}>
                       <i className="fas fa-trash"></i>
                     </button>
                   </td>
