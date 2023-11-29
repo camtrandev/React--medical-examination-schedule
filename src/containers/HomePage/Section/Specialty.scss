@@ -1,0 +1,29 @@
+
+
+.section-specialty {
+    height: 310px;
+    background: #f5f5f5;
+    border: 2px solid red;
+}
+
+// rest slick slider css
+
+.slick-prev {
+    border: 1px solid rebeccapurple !important;
+    position: relative;
+    left: 0 !important;
+    top: 160px !important;
+    background-color: aqua !important;
+}
+
+.slick-next {
+    border: 1px solid rgb(51, 153, 78) !important;
+    position: relative;
+    right: 0 !important;
+    top: 160px !important;
+    background-color: aqua !important;
+}
+
+.slick-prev, .slick-next {
+    
+}
