@@ -1,0 +1,103 @@
+
+// Điểm riêng của specialty
+
+ .section-share {
+
+    &.section-specialty {
+         background: #f3f3f3f0;
+    }
+
+    .section-body {
+            .section-customize {
+                .bg-image {
+                    width: 278px;
+                    height: 150px;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-color: #eee;
+
+                    &.section-specialty {
+                        background: url('../../assets/specialty/da-lieu-tham-my.jpg');
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-color: #eee;
+                    }
+                }
+    
+                .section-customize-text {
+                    &:hover {
+                        color: rgb(61, 212, 239);
+                    }
+                }
+            }
+    
+        }
+}
+
+
+
+.section-share {
+    height: 330px;
+
+    .section-container {
+        margin: 0 45px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            height: 60px;
+            margin-bottom: 30px;
+            padding-top: 30px;
+
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+            }
+
+            .btn-section {
+                display: block;
+                float: right;
+                padding: 10px 15px;
+                border: none;
+                outline: none;
+                background: #ebebeb;
+                color: black;
+                cursor: pointer;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: #fff;
+                    background: #f7d800;
+                }
+            }
+        }
+    }
+}
+
+
+// rest slick slider css
+
+.slick-prev {
+    left: -8px !important;
+    z-index: 1;
+    background-color: white !important;
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'Glyphicons Halflings' !important;
+    color: red !important;
+}
+
+
+.slick-next {
+    z-index: 1;
+    right: -8px !important;
+    background-color: white !important;
+    height: 40px !important;
+    width: 40px !important;
+}

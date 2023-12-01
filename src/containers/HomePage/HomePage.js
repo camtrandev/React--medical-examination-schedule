@@ -2,14 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
 import Specialty from './Section/specialty';
+import MedcicalFacility from "./Section/medcicalFacility"
+import './HomePage.scss';
+// import css file
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"
 
 class HomePage extends Component {
 
     render() {
+        let settings = {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 3
+        };
+
         return (
            <div> 
              <HomeHeader/> 
-             <Specialty/>
+             <Specialty 
+                settings={settings}
+             />
+             <MedcicalFacility 
+                settings={settings}
+             />
              <div style={{height: '300px'}}></div>
            </div>
         );
