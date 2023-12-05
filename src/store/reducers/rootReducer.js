@@ -19,11 +19,19 @@ const persistCommonConfig = {
 const userPersistConfig = {
     ...persistCommonConfig,
     key: 'user',
-    whitelist: ['isLoggedIn', 'userInfo','Language']
+    whitelist: ['isLoggedIn', 'userInfo']
 };
+
+
+// lưu biết language lại để khi load lại trang không bị mất ngôn ngữ 
+const appPersistConfig = {
+    ...persistCommonConfig,
+    key: 'app',
+    whitelist: ['language']
+}
 
 export default (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
-    app: appReducer
+    app: persistReducer (appPersistConfig, appReducer)
 })
