@@ -39,11 +39,17 @@ const EditUserService = (inputData) => {
     return axios.put('/api/edit-user',inputData);
 }
 
+// thấy thông tin dữ liệu phần allCode
+const getAllCodeService = async(inputType) => {
+    return axios.get(`/api/allcode?type=${inputType}`);
+}
+
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
     getAllUsers, 
     createNewUserService,
     deleteUserService,
-    EditUserService
+    EditUserService,
+    getAllCodeService
 }

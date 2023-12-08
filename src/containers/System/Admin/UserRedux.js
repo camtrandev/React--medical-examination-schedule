@@ -1,20 +1,58 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { getAllCodeService } from '../../../services/userService';
+import { LANGUAGES } from '../../../utils';
+// để sử dụng userAction, adminAction, appAction
+import * as actions from '../../../store/actions'
+
 class UserRedux extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            genderArr:[]
         }
     }
     
 
-    componentDidMount() {
+ async componentDidMount () {
+
+    //dung redux
+     this.props.getGenderStart();
+
+    // lấy từ dưới database lên
+        // try {
+        //     let res = await getAllCodeService('gender');
+        //     if (res && res.errCode === 0) {
+        //         this.setState ({
+        //             genderArr: res.data
+        //         })
+        //     }
+        //     console.log("check res: ", res);
+        // } catch(e) {
+        //     console.log('error',e)
+        // }
     }
 
 
+    // 1 function giúp nhận biết được biến props thay đổi 
+    // Biến prevProp so sánh biến props hiện tại và biến sắp tới
+    componentDidUpdate(prevProp, prevState, snapshot) {
+        // render -> didUpdate
+        // check hiện tại và quá khứ
+        // quá khứ là [] và hiện tại là [3] ptu 
+        // setState lại rồi render ra màn hình
+        if (prevProp.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux,
+            })
+        }
+    }
+
     render() {
+        let genders = this.state.genderArr;
+        let language = this.props.language;
+
         return (
             <div className='user-redux-container'>
                 <div className='title'>
@@ -58,8 +96,16 @@ class UserRedux extends Component {
                             <div className='col-3'>
                                 <label><FormattedMessage id="manage-user.gender" /></label>
                                 <select className='form-control'>
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
+                                {genders && genders.length > 0 && 
+                                   genders.map((item, index) =>{
+                                    return (
+                                        <option 
+                                            key={index}>{language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                        </option>
+                                    )
+                                   }) 
+                                }
+            
                                 </select>
                             </div>
 
@@ -98,11 +144,16 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
+        language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart())
+        //processLogout: () => dispatch(actions.processLogout()),
+        //changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };
 
