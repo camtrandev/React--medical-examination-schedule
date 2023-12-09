@@ -3,31 +3,65 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    isLoadingGender: false,
     genders: [],
     roles:[],
-    position:[]
+    positions:[]
 }
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
-            console.log('camtrandev start: ', action)
+            
+            state.isLoadingGender = true;
             return {
+                // dùng 3 dấu chấm là nó copy các thuộc tính của biến đằng trước
                 ...state
             }
         case actionTypes.FETCH_GENDER_SUCCESS:
-            let copyState= {...state}
-            copyState.genders = action.data;
-            console.log(copyState)
-            return {
-                ...copyState
-            }
-
-        case actionTypes.FETCH_GENDER_FAILED:
-            console.log('camtrandev failed: ', action)
+            state.genders = action.data;
+            state.isLoadingGender = false;
             return {
                 ...state
             }
+
+        case actionTypes.FETCH_GENDER_FAILED:
+            state.isLoadingGender =  false;
+            state.genders = [];
+            return {
+                ...state
+            }
+
+
+            //Position
+        case actionTypes.FETCH_POSITION_SUCCESS:
+
+            state.positions = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_FAILED:
+
+            state.positions = [];
+            return {
+                ...state
+            }
+
+            //ROLE
+
+        case actionTypes.FETCH_ROLE_SUCCESS:
+
+            state.roles = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_FAILED:
+
+            state.roles = [];
+            return {
+                ...state
+            }
+
 
         default:
             return state;
