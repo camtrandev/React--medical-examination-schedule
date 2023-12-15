@@ -50,7 +50,8 @@
         "position": "Chức danh",
         "roleId": "Vai trò",
         "save": "Lưu user",
-        "image": "Ảnh"
+        "image": "Ảnh",
+        "edit": "Sửa"
 
 
     }
