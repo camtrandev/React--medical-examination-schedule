@@ -52,6 +52,11 @@
         "position": "Position",
         "roleId": "Role",
         "save": "Save",
-        "image": "Avatar"
+        "image": "Avatar",
+        "edit": "edit"
+    },
+    "Homepage": {
+        "outstanding-doctor": "Doctor featured last week",
+        "more-infor": "see more"
     }
 }

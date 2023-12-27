@@ -24,6 +24,10 @@
     height: 40px !important;
     width: 40px !important;
 }
+//
+.slick-disabled {
+    display: none !important;
+}
 
 
 
@@ -95,7 +99,7 @@
                     }
 
                     &.section-outstanding-doctor {
-                        background-image: url('../../assets/specialty/TMC-doctor-check.jpg');
+                        // background-image: url('../../assets/specialty/TMC-doctor-check.jpg');
                         width: 120px;
                         height: 120px;
                         margin: 0 auto;

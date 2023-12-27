@@ -44,6 +44,10 @@ const getAllCodeService = async(inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`);
 }
 
+const getTopDoctorServicer = (limit) => {
+    return axios.get(`/api/top-doctor-home?limit=${limit}`)
+}
+
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
@@ -51,5 +55,6 @@ export {
     createNewUserService,
     deleteUserService,
     EditUserService,
-    getAllCodeService
+    getAllCodeService,
+    getTopDoctorServicer
 }
