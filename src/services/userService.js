@@ -48,6 +48,16 @@ const getTopDoctorServicer = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
 }
 
+// Gọi Api lấy thông tin của Bác sĩ
+
+const getAllDoctors = (limit) => {
+    return axios.get(`/api/get-all-doctors`)
+}
+
+const saveDetailDoctorService = (data) => {
+    return axios.post('/api/save-infor-doctors', data)
+}
+
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
@@ -56,5 +66,7 @@ export {
     deleteUserService,
     EditUserService,
     getAllCodeService,
-    getTopDoctorServicer
+    getTopDoctorServicer,
+    getAllDoctors,
+    saveDetailDoctorService
 }
