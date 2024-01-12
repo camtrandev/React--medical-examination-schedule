@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { 
-  getAllUsers ,
+import {
+  getAllUsers,
   createNewUserService,
   deleteUserService,
   EditUserService
@@ -22,7 +22,7 @@ class UserManage extends Component {
       arrUsers: [],
       isOpenModal: false,
       isOpenModalEdituser: false,
-      userEdit:{}
+      userEdit: {}
     }
   }
 
@@ -62,13 +62,13 @@ class UserManage extends Component {
     })
   }
 
-// chuyền hàm gọi từ Node bên userService
-  createNewUser =async (data) => {
+  // chuyền hàm gọi từ Node bên userService
+  createNewUser = async (data) => {
     try {
       let reponse = await createNewUserService(data);
       if (reponse && reponse.errCode !== 0) {
         alert(reponse.errMessage)
-      }else {
+      } else {
         await this.getAllUsersFromReact();
         this.setState({
           isOpenModal: false
@@ -77,23 +77,23 @@ class UserManage extends Component {
         // emitter.emit('EVENT_CLEAR_MODAL_DATA', {'id': 'your id'})
         emitter.emit('EVENT_CLEAR_MODAL_DATA')
       }
-    } catch(e) {
-       console.log(e)
+    } catch (e) {
+      console.log(e)
     }
-   
+
   }
 
 
   // delete user 
-  handleDeleteUser = async(user) => {
+  handleDeleteUser = async (user) => {
     try {
       let res = await deleteUserService(user.id)
       if (res && res.errCode == 0) {
         await this.getAllUsersFromReact();
-      }else {
+      } else {
         alert(res.errMessage)
       }
-    }catch(e) {
+    } catch (e) {
       console.log(e)
     }
   }
@@ -106,18 +106,18 @@ class UserManage extends Component {
   }
 
 
-  doEditUser = async(user) => {
+  doEditUser = async (user) => {
     try {
-        let res = await EditUserService(user);
-        if (res && res.errCode === 0 ) {
-          this.setState({
-            isOpenModalEdituser: false
-          })
-          this.getAllUsersFromReact();
-        }else {
-          alert(res.errMessage)
-        }
-    }catch (e) {
+      let res = await EditUserService(user);
+      if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalEdituser: false
+        })
+        this.getAllUsersFromReact();
+      } else {
+        alert(res.errMessage)
+      }
+    } catch (e) {
       console.log(e)
     }
   }
@@ -143,15 +143,14 @@ class UserManage extends Component {
         {
           this.state.isOpenModalEdituser &&
 
-        <ModalEditUser
-          isOpen={this.state.isOpenModalEdituser}
-          // tạo toggle đóng mở
-          toggleFromParent={this.toggleUserEditModal}
-          currentUser = {this.state.userEdit}
-          // gọi đến hàm bên trên để gọi đến API bên nodejs 
-          EditUser={this.doEditUser}
-        
-        />
+          <ModalEditUser
+            isOpen={this.state.isOpenModalEdituser}
+            // tạo toggle đóng mở
+            toggleFromParent={this.toggleUserEditModal}
+            currentUser={this.state.userEdit}
+            // gọi đến hàm bên trên để gọi đến API bên nodejs 
+            EditUser={this.doEditUser}
+          />
         }
         <div className='title'>Manage User With CamTranDev</div>
 
@@ -160,48 +159,48 @@ class UserManage extends Component {
             onClick={() => this.handleAddNewUser()}
           >
             <i className='fas fa-plus'> </i>
-              Add new Users
+            Add new Users
           </button>
         </div>
-        
+
         <div className="users-table mt-3 mx-1">
-          
+
           <table id="customers">
-          <tbody>
-            <tr>
-              <th>Email</th>
-              <th>FirstName</th>
-              <th>LastName</th>
-              <th>Address</th>
-              <th>Action</th>
-            </tr>
+            <tbody>
+              <tr>
+                <th>Email</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
 
-            {arrUsers && arrUsers.map((item, index) => {
-              return (
-                // phải return ra 1 khôi không thì sẽ có lỗi vậy phải bộ trong <> </>
-                <tr>
-                  <td>{item.email}</td>
-                  <td>{item.firstName}</td>
-                  <td>{item.lastName}</td>
-                  <td>{item.address}</td>
-                  <td>
-                    <button className='btn-edit' onClick={() => this.handleEditUser(item)}>
-                      <i className="fas fa-pencil-alt"></i>
-                    </button>
-                    <button className='btn-delete' onClick={()=> this.handleDeleteUser(item)}>
-                      <i className="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              )
-            })
-            }
+              {arrUsers && arrUsers.map((item, index) => {
+                return (
+                  // phải return ra 1 khôi không thì sẽ có lỗi vậy phải bộ trong <> </>
+                  <tr key={index}>
+                    <td>{item.email}</td>
+                    <td>{item.firstName}</td>
+                    <td>{item.lastName}</td>
+                    <td>{item.address}</td>
+                    <td>
+                      <button className='btn-edit' onClick={() => this.handleEditUser(item)}>
+                        <i className="fas fa-pencil-alt"></i>
+                      </button>
+                      <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}>
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })
+              }
 
-        </tbody>
+            </tbody>
           </table>
-          
+
         </div>
-        
+
       </div >
     );
   }

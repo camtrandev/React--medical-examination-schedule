@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
 // import action redux
 import { changeLanguageApp } from '../../store/actions';
+import { withRouter } from 'react-router';
 
 class HomeHeader extends Component {
 
@@ -14,6 +15,12 @@ class HomeHeader extends Component {
     changLanguage = (language) => {
         this.props.changeLanguageAppRedux(language)
         // hiển thị redux event : actions
+    }
+
+    returnToHome = () => {
+        if (this.props.history) {
+            this.props.history.push(`/home`)
+        }
     }
 
     render() {
@@ -25,8 +32,7 @@ class HomeHeader extends Component {
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className="fas fa-bars"></i>
-                            <img className='header-logo' src={logo} />
-                            <div className='header-logo'></div>
+                            <img className='header-logo' src={logo} onClick={() => this.returnToHome()} />
 
                         </div>
                         <div className='center-content'>
@@ -119,4 +125,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 // hàm dùng để kết nốt React và redux 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

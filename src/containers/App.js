@@ -21,6 +21,8 @@ import DetailDoctor from './Patient/Doctor/DetailDoctor';
 
 // import để tạo thanh cuộn chuột
 import CustomScrollbars from '../components/CustomScrollbars'
+import Doctor from '../routes/doctor';
+
 
 class App extends Component {
 
@@ -53,8 +55,10 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={'/doctor/'} component={userIsAuthenticated(Doctor)} />
+
                                     <Route path={path.HOMEPAGE} component={HomePage} />
-                                    <Route path={path.DETAIL_DOCTOR} component={DetailDoctor}/> 
+                                    <Route path={path.DETAIL_DOCTORS} component={DetailDoctor} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

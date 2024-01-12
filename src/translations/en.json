@@ -1,5 +1,4 @@
 {
-
     "homeHeader": {
         "speciality": "Medical specialty",
         "search-doctor": "Find doctors by department",
@@ -12,8 +11,6 @@
         "support": "Support",
         "welcome": "Welcome, "
     },
-
-
     "banner": {
         "child1": "Specialized examination",
         "child2": "Remote medical examination",
@@ -22,9 +19,7 @@
         "child5": "Mental health",
         "child6": "Dental examination"
     },
-
     "menu": {
-        
         "admin": {
             "manage-user": "Users System",
             "manage-doctor": "Manage Doctor",
@@ -37,8 +32,10 @@
             "manage-specialty": "Manage Specialty",
             "handbook": "HandBook",
             "manage-handbook": "Manage HandBook"
+        },
+        "doctor": {
+            "manage-schedule": "Manage Doctor's schedule"
         }
-
     },
     "manage-user": {
         "add": "Add new user",

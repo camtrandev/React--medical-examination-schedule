@@ -24,6 +24,21 @@
         }
     }
 
+    .create-content-doctor {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        border-radius: 3px;
+        outline: none;
+        border: none;
+        padding: 5px;
+        background-color: rgb(234, 185, 60);
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+
     .more-infor {
         display: flex;
         gap: 15px;

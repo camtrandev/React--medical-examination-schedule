@@ -30,9 +30,10 @@ class OutStandingDoctor extends Component {
         this.props.loadTopDoctors();
     }
 
-    handleViewDetailDoctor = (doctor) =>{
-        console.log("check detail doctor:   ", doctor);
-        this.props.history.push(`/detail-doctor/${doctor.id}`);
+    handleViewDetailDoctor = (doctor) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-doctor/${doctor.id}`);
+        }
     }
 
     render() {
