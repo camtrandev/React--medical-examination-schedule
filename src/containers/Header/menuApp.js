@@ -25,7 +25,7 @@ export const adminMenu = [
 
             { //Quản lý ke hoach kham benh
 
-                name: 'menu.doctor.schedule', link: '/doctor/manage-schedule'
+                name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
 
             },
         ]

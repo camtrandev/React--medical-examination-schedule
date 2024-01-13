@@ -5,17 +5,18 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoadingGender: false,
     genders: [],
-    roles:[],
-    positions:[],
+    roles: [],
+    positions: [],
     users: [],
     topDoctors: [],
-    allDoctors: []
+    allDoctors: [],
+    allScheduleTime: []
 }
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
-            
+
             state.isLoadingGender = true;
             return {
                 // dùng 3 dấu chấm là nó copy các thuộc tính của biến đằng trước
@@ -29,14 +30,14 @@ const adminReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_GENDER_FAILED:
-            state.isLoadingGender =  false;
+            state.isLoadingGender = false;
             state.genders = [];
             return {
                 ...state
             }
 
 
-            //Position
+        //Position
         case actionTypes.FETCH_POSITION_SUCCESS:
 
             state.positions = action.data;
@@ -50,7 +51,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-            //ROLE
+        //ROLE
 
         case actionTypes.FETCH_ROLE_SUCCESS:
 
@@ -75,20 +76,20 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        
-            // nó nhận giá trị từ biến dataDoctor bên adminAction
+
+        // nó nhận giá trị từ biến dataDoctor bên adminAction
         case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
             state.topDoctors = action.dataDoctor;
             return {
                 ...state
             }
-            
+
         case actionTypes.FETCH_TOP_DOCTORS_FAILED:
             state.topDoctors = [];
             return {
                 ...state
             }
-// Lấy thông tin bác sĩ
+        // Lấy thông tin bác sĩ
         case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
             state.allDoctors = action.dataDr;  // Thông tin tin của bác sĩ sẽ được lấy từ adminAction thông qua "action.dataDr" và được lưu vào allDoctors
             return {
@@ -99,8 +100,19 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+        // Kiểm tra trường hợp rồi lưu thông tin vào biến
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            state.allScheduleTime = action.dataTime;  // Thông tin tin của bác sĩ sẽ được lấy từ adminAction thông qua "action.dataDr" và được lưu vào allDoctors
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
+            state.allScheduleTime = [];
+            return {
+                ...state
+            }
 
-            
+
         default:
             return state;
     }
