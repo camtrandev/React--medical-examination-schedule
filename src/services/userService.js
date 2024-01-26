@@ -7,11 +7,11 @@ import axios from '../axios'
 const handleLogin = (email, password) => {
     // userEmail and userPassword là cái mà client gửi lên sau đó nó gán bằng email và passwork
     // 
-    return axios.post('/api/login', {email: email, password: password})
+    return axios.post('/api/login', { email: email, password: password })
 }
 
 // react lấy dữ liệu người dùng hiển thị
-const getAllUsers = (inputId) =>{
+const getAllUsers = (inputId) => {
     // đường link api trung vs dduongf link bên backend
     // sử dung temple string 
     return axios.get(`/api/get-all-user?id=${inputId}`);
@@ -19,14 +19,14 @@ const getAllUsers = (inputId) =>{
 
 // reactjs Create new User
 const createNewUserService = (data) => {
-    return axios.post('/api/create-new-user',data)
+    return axios.post('/api/create-new-user', data)
 
 }
 
 // reactjs delete User
 const deleteUserService = (userId) => {
     // return axios.delete('/api/delete-user', {id:userId})
-    return axios.delete('/api/delete-user',{
+    return axios.delete('/api/delete-user', {
         data: {
             id: userId
         }
@@ -36,11 +36,11 @@ const deleteUserService = (userId) => {
 // Edit User
 // đầu vào data là email pass ...
 const EditUserService = (inputData) => {
-    return axios.put('/api/edit-user',inputData);
+    return axios.put('/api/edit-user', inputData);
 }
 
 // thấy thông tin dữ liệu phần allCode
-const getAllCodeService = async(inputType) => {
+const getAllCodeService = async (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`);
 }
 
@@ -58,14 +58,18 @@ const saveDetailDoctorService = (data) => {
     return axios.post('/api/save-infor-doctors', data)
 }
 
-const getDetailInforDoctor  = (inputId)=> {
+const getDetailInforDoctor = (inputId) => {
     return axios.get(`api/get-detail-doctor-by-id?id=${inputId}`);
+}
+
+const saveBulkScheduleDoctor = (data) => {
+    return axios.post('/api/bulk-create-schedule', data)
 }
 
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin,
-    getAllUsers, 
+    getAllUsers,
     createNewUserService,
     deleteUserService,
     EditUserService,
@@ -73,5 +77,6 @@ export {
     getTopDoctorServicer,
     getAllDoctors,
     saveDetailDoctorService,
-    getDetailInforDoctor
+    getDetailInforDoctor,
+    saveBulkScheduleDoctor
 }
