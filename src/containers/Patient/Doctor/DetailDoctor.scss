@@ -35,6 +35,21 @@
         }
     }
 
+    .schedule-doctor {
+        margin: 0 100px;
+        display: flex;
+        height: 200px;
+
+        .content-left {
+            width: 50%;
+            margin-left: 5px;
+        }
+
+        .content-right {
+            width: 50%;
+        }
+    }
+
     .detail-infor-doctor {
         padding-top: 55px;
         padding: 10px 70px;
