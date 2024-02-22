@@ -102,7 +102,7 @@ class ManageSchedule extends Component {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
-            toast.error("Invalid date! ");
+            toast.warning("Please select a date! ");
             return;
         }
         if (selectedDoctor && _.isEmpty(selectedDoctor)) {
@@ -137,6 +137,15 @@ class ManageSchedule extends Component {
             formatedDate: formatedDate
         });
 
+        // thông báo
+
+        if (res && res.errCode === 0) {
+            toast.success("saved successfully! ")
+        } else {
+            toast.error("Error saveBulkScheduleDoctor!");
+            console.log("check error saveBulkScheduleDoctor:   ", res);
+        }
+
     }
 
 
@@ -144,7 +153,8 @@ class ManageSchedule extends Component {
 
         let { rangeTime } = this.state;
         let { language } = this.props;
-
+        // chọn ngày hiện tại
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
 
         return (
             <div className='manage-schedule-container'>
@@ -167,7 +177,7 @@ class ManageSchedule extends Component {
                                 onChange={this.handleOnchangeDatePicker}
                                 className='form-control'
                                 value={this.state.currentDate}
-                                minDate={moment(new Date()).add(1, 'days')}
+                                minDate={yesterday}
                             />
                         </div>
                         <div className='col-12 pick-hour-container'>
