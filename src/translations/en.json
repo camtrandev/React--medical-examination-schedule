@@ -68,6 +68,13 @@
             "no-schedule": "The doctor does not have time to examine the patient, please choose another time!!",
             "choose": "Choose",
             "book-free": "and book (free)"
+        },
+        "extra-infor-doctor": {
+            "text-address": "EXAMINATION ADDRESS",
+            "price": "Examination Price",
+            "detail": "See details",
+            "payment": "Patients can pay by form :",
+            "hide-price": "Hide price list"
         }
     },
     "admin": {
