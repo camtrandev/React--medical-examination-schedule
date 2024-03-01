@@ -75,6 +75,20 @@
             "detail": "See details",
             "payment": "Patients can pay by form :",
             "hide-price": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Information on scheduling medical examinations",
+            "fullName": "FullName",
+            "phoneNumber": "Phone Number",
+            "email": "Email",
+            "address": "Address",
+            "birthday": "Birthday",
+            "reson": "Reason for examination ",
+            "confirm": "Confirm",
+            "gender": "Gender",
+            "cancel": "Cancel",
+            "freebooking": "Free Booking",
+            "price": "Price: "
         }
     },
     "admin": {

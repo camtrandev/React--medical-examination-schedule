@@ -5,7 +5,8 @@ import './ProfileDoctor.scss';
 import { getProfileDoctorById } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils'
 import NumberFormat from 'react-number-format'
-
+import _ from 'lodash';
+import moment from 'moment';
 
 class ProfileDoctor extends Component {
 
@@ -20,6 +21,7 @@ class ProfileDoctor extends Component {
 
     async componentDidMount() {
         let data = await this.getInforDoctor(this.props.doctorId);
+
         this.setState({
             dataProfile: data
         })
@@ -45,37 +47,102 @@ class ProfileDoctor extends Component {
 
         }
     }
+    renderTimeBooking = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+
+            let time = language === LANGUAGES.VI ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YY')
+                :
+                moment.unix(+dataTime.date / 1000).format('ddd - MM//DD/YY')
+                ;
+            return (
+                <>
+                    <div>{time} - {date}</div>
+                    <div><FormattedMessage id="patient.booking-modal.freebooking" /></div>
+                </>
+            )
+        }
+        return <></>
+    }
 
     render() {
-        let { language } = this.props;
+        let { language, dataTime, isShowDescDoctor } = this.props;
         let { dataProfile } = this.state;
+        console.log("chech doctorId:        ", this.props.doctorId)
+
+        let nameVi = '', nameEn = '';
+        if (dataProfile && dataProfile.positionData) {
+            nameVi = `${dataProfile.positionData.valueVi},${dataProfile.firstName} ${dataProfile.lastName}`;
+            nameEn = `${dataProfile.positionData.valueEn},${dataProfile.firstName} ${dataProfile.lastName}`;
+        }
+
 
         return (
-            <div className='price'>
-                Giá khám:
-                {dataProfile && dataProfile.Doctor_infor && language === LANGUAGES.VI ?
-                    < NumberFormat
-                        value={dataProfile.Doctor_infor.priceTypeData.valueVi}
-                        displayType='text'
-                        thousandSeparator={true}
-                        suffix={'VND'}
-                    />
-                    : ''
+            <>
+                <div className='profile-doctor-container'>
+                    <div className='intro-doctor'>
+                        <div className='content-left'
+                            style={{ backgroundImage: `url(${dataProfile && dataProfile.image ? dataProfile.image : ''})` }}
+                        >
 
-                }
+                        </div>
+                        <div className='content-right'>
+                            <div className='up'>
+                                {language === LANGUAGES.VI ? nameVi : nameEn}
+                            </div>
+                            <div className='down'>
+                                {isShowDescDoctor === true ?
+                                    <>
+                                        {dataProfile && dataProfile.Markdown && dataProfile.Markdown.description
+                                            && <span>
 
-                {dataProfile && dataProfile.Doctor_infor && language === LANGUAGES.EN ?
+                                                {dataProfile.Markdown.description}
+                                            </span>
+                                        }
+                                    </>
+                                    :
+                                    <>
+                                        {this.renderTimeBooking(dataTime)}
+                                    </>
 
-                    < NumberFormat
-                        value={dataProfile.Doctor_infor.priceTypeData.valueEn}
-                        displayType='text'
-                        thousandSeparator={true}
-                        suffix={'$'}
-                    />
-                    : ''
 
-                }
-            </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='price'>
+                    <FormattedMessage id="patient.booking-modal.price" />
+                    {dataProfile && dataProfile.Doctor_infor && language === LANGUAGES.VI ?
+                        < NumberFormat
+                            value={dataProfile.Doctor_infor.priceTypeData.valueVi}
+                            displayType='text'
+                            thousandSeparator={true}
+                            suffix={'VND'}
+                        />
+                        : ''
+
+                    }
+
+                    {dataProfile && dataProfile.Doctor_infor && language === LANGUAGES.EN ?
+
+                        < NumberFormat
+                            value={dataProfile.Doctor_infor.priceTypeData.valueEn}
+                            displayType='text'
+                            thousandSeparator={true}
+                            suffix={'$'}
+                        />
+                        : ''
+
+                    }
+                </div>
+            </>
+
         );
     }
 }
