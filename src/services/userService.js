@@ -87,22 +87,26 @@ const postVerifyBookAppointment = (data) => {
     return axios.post('/api/verify-book-appointment', data)
 }
 
+const createNewSpecialty = (data) => {
+    return axios.post('/api/create-new-specialty', data)
+}
+
+const getAllSpecialty = () => {
+    return axios.get(`/api/get-specialty`);
+}
+
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
-    handleLogin,
-    getAllUsers,
-    createNewUserService,
-    deleteUserService,
-    EditUserService,
-    getAllCodeService,
-    getTopDoctorServicer,
-    getAllDoctors,
-    saveDetailDoctorService,
-    getDetailInforDoctor,
-    saveBulkScheduleDoctor,
+    handleLogin, getAllUsers,
+    createNewUserService, deleteUserService,
+    EditUserService, getAllCodeService,
+    getTopDoctorServicer, getAllDoctors,
+    saveDetailDoctorService, getDetailInforDoctor,
+    saveBulkScheduleDoctor, getAllSpecialty,
     getScheduleDoctorByDate,
     getExtraInforDoctorById,
     getProfileDoctorById,
     postPatientBookAppointment,
-    postVerifyBookAppointment
+    postVerifyBookAppointment,
+    createNewSpecialty
 }

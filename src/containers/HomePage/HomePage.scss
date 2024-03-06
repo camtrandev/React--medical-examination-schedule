@@ -1,6 +1,3 @@
-
-
-
 // rest slick slider css
 .slick-prev {
     left: -8px !important;
@@ -24,6 +21,7 @@
     height: 40px !important;
     width: 40px !important;
 }
+
 //
 .slick-disabled {
     display: none !important;
@@ -33,7 +31,7 @@
 
 // kế thừ code cũ
 
- .section-share {
+.section-share {
 
     &.section-specialty {
         background: #f3f3f3f0;
@@ -46,11 +44,11 @@
     &.section-about {
         height: 500px;
         padding: 0 100px;
-        border-top:1px solid #e7e4e4;
+        border-top: 1px solid #e7e4e4;
         border-bottom: 1px solid #e5e3e3;
 
         .section-about-header {
-            padding:20px 10px;
+            padding: 20px 10px;
             font-size: 22px;
             font-weight: 600;
         }
@@ -66,8 +64,8 @@
 
             .content-right {
                 width: 40%;
-                
-                p{
+
+                p {
                     text-align: justify;
                     font-style: italic;
                     padding: 15px;
@@ -78,45 +76,45 @@
 
 
     .section-body {
-            .section-customize {
-                .bg-image {
-                    width: 278px;
-                    height: 150px;
-                    background-position: center center ;
-                    background-repeat: no-repeat ;
-                    background-size: cover ;
-                    background-color: #eee ;
+        .section-customize {
+            .bg-image {
+                width: 278px;
+                height: 150px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
 
-                    &.section-specialty {
-                        background-image: url('../../assets/specialty/da-lieu-tham-my.jpg');
-                        
-                    }
+                &.section-specialty {
+                    // background-image: url('../../assets/specialty/da-lieu-tham-my.jpg');
 
-                    &.section-Medcical-facility {
-                        height: 170px;
-                        background-image: url('../../assets/specialty/BV-chợ-Rẫy.jpg');
-                       
-                    }
-
-                    &.section-outstanding-doctor {
-                        // background-image: url('../../assets/specialty/TMC-doctor-check.jpg');
-                        width: 120px;
-                        height: 120px;
-                        margin: 0 auto;
-                        border-radius: 50%;
-                    }
-
-                    &.section-handbook {
-                        background-image: url('../../assets/HandBook/HandBool-SetNghiem.png');
-                    }
                 }
-    
-                .section-customize-text {
-                    &:hover {
-                        color: rgb(61, 212, 239);
-                    }
+
+                &.section-Medcical-facility {
+                    height: 170px;
+                    background-image: url('../../assets/specialty/BV-chợ-Rẫy.jpg');
+
+                }
+
+                &.section-outstanding-doctor {
+                    // background-image: url('../../assets/specialty/TMC-doctor-check.jpg');
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                }
+
+                &.section-handbook {
+                    background-image: url('../../assets/HandBook/HandBool-SetNghiem.png');
                 }
             }
+
+            .section-customize-text {
+                &:hover {
+                    color: rgb(61, 212, 239);
+                }
+            }
+        }
     }
 }
 
@@ -183,6 +181,7 @@
     text-align: center;
     padding-top: 9px;
     border-color: #cfcdcd;
+
     a {
         text-decoration: none;
     }

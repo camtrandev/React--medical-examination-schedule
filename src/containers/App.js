@@ -23,6 +23,7 @@ import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import CustomScrollbars from '../components/CustomScrollbars'
 import Doctor from '../routes/doctor';
 import VerifyEmail from './Patient/VerifyEmail';
+import detailSpecialty from './Patient/specialty/detailSpecialty';
 
 
 class App extends Component {
@@ -60,6 +61,8 @@ class App extends Component {
 
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                                    <Route path={path.DETAIL_SPECIALTY} component={detailSpecialty} />
+
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
 
                                 </Switch>
