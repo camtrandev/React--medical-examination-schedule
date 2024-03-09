@@ -43,7 +43,7 @@ class ManageDoctor extends Component {
             selectedPayment: '',
             selectProvince: '',
             selectClinic: '',
-            selectSpecialty: '',
+            selectedSpecialty: '',
             nameClinic: '',
             addressClinic: '',
             note: '',
@@ -172,21 +172,22 @@ class ManageDoctor extends Component {
             addressClinic: this.state.addressClinic,
             note: this.state.note,
             clinicId: this.state.selectClinic && this.state.selectClinic.value ? this.state.selectClinic.value : '',
-            specialtyId: this.state.selectSpecialty.value
+            specialtyId: this.state.selectedSpecialty.value
         })
 
     }
 
     handleChangeSelect = async (selectedOption) => {
         this.setState({ selectedOption });
-        let { listPayment, listPrice, listProvince } = this.state;
+        let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
         let res = await getDetailInforDoctor(selectedOption.value)
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown;
 
             let addressClinic = '', nameClinic = '',
-                note = '', paymentId = '', priceId = '', provinceId = '',
-                selectedPayment = '', selectedPrice = '', selectProvince = '';
+                note = '', paymentId = '', priceId = '', specialtyId = '', provinceId = '',
+                selectedPayment = '', selectedPrice = '', selectProvince = '',
+                selectedSpecialty = '';
 
             if (res.data.Doctor_infor) {
                 addressClinic = res.data.Doctor_infor.addressClinic;
@@ -195,6 +196,7 @@ class ManageDoctor extends Component {
                 priceId = res.data.Doctor_infor.priceId;
                 provinceId = res.data.Doctor_infor.provinceId;
                 note = res.data.Doctor_infor.note;
+                specialtyId = res.data.Doctor_infor.specialtyId;
 
                 selectedPayment = listPayment.find(item => {
                     return item && item.value === paymentId
@@ -207,6 +209,12 @@ class ManageDoctor extends Component {
                 selectProvince = listProvince.find(item => {
                     return item && item.value === provinceId
                 })
+                console.log("check selectProvince:    ", selectProvince)
+                selectedSpecialty = listSpecialty.find(item => {
+                    return item && item.value === specialtyId
+                })
+                console.log("check selectedSpecialty:    ", selectedSpecialty)
+
             }
 
             this.setState({
@@ -219,7 +227,8 @@ class ManageDoctor extends Component {
                 note: note,
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
-                selectProvince: selectProvince
+                selectProvince: selectProvince,
+                selectedSpecialty: selectedSpecialty
 
             });
         } else {
@@ -233,7 +242,8 @@ class ManageDoctor extends Component {
                 note: '',
                 selectedPrice: '',
                 selectedPayment: '',
-                selectProvince: ''
+                selectProvince: '',
+                selectSpecialty: ''
 
             });
         }
@@ -356,11 +366,11 @@ class ManageDoctor extends Component {
                     <div className='col-4 form-group'>
                         <label><FormattedMessage id="admin.manage-doctor.speciality" /></label>
                         <Select
-                            value={this.state.selectSpecialty}
+                            value={this.state.selectedSpecialty}
                             onChange={this.handOnchangeSelectDoctorInfor}
                             options={this.state.listSpecialty}
                             placeholder={<FormattedMessage id="admin.manage-doctor.speciality" />}
-                            name="selectSpecialty"
+                            name="selectedSpecialty"
                         />
                     </div>
 

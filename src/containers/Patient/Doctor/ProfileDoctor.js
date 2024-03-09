@@ -71,7 +71,7 @@ class ProfileDoctor extends Component {
     render() {
         let { language, dataTime, isShowDescDoctor } = this.props;
         let { dataProfile } = this.state;
-        console.log("chech doctorId:        ", this.props.doctorId)
+
 
         let nameVi = '', nameEn = '';
         if (dataProfile && dataProfile.positionData) {

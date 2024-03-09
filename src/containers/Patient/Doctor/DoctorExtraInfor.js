@@ -21,7 +21,12 @@ class DoctorExtraInfor extends Component {
 
     // hàm được chay khi cái conponent DoctorExtraInfor nó render
     async componentDidMount() {
-
+        let res = await getExtraInforDoctorById(this.props.doctorIdFromParent);
+        if (res && res.errCode === 0) {
+            this.setState({
+                extraInfor: res.data
+            })
+        }
     }
 
 
