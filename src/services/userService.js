@@ -99,6 +99,10 @@ const getAllDetailSpecialtyById = (data) => {
     return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`);
 }
 
+const createClinic = (data) => {
+    return axios.post('/api/create-new-clinic', data)
+}
+
 // đối với thằng react nó k có module.export mà thay thành export{handleLogin}
 export {
     handleLogin, getAllUsers,
@@ -108,7 +112,7 @@ export {
     saveDetailDoctorService, getDetailInforDoctor,
     saveBulkScheduleDoctor, getAllSpecialty,
     getScheduleDoctorByDate, getAllDetailSpecialtyById,
-    getExtraInforDoctorById,
+    getExtraInforDoctorById, createClinic,
     getProfileDoctorById,
     postPatientBookAppointment,
     postVerifyBookAppointment,

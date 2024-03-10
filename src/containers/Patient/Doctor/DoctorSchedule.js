@@ -26,8 +26,15 @@ class DoctorSchedule extends Component {
     // hàm được chay khi cái conponent DoctorSchedule nó render
     async componentDidMount() {
         let { language } = this.props;
-
         let allDays = this.getArrDays(language);
+
+        if (this.props.doctorIdFromParent) {
+            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value)
+            this.setState({
+                allAvaibleTime: res.data ? res.data : []
+            })
+        }
+
         this.setState({
             allDays: allDays,
 
